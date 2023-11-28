@@ -1,5 +1,10 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import Nomination from './Nomination'
+
+interface CountResult {
+  total: number
+}
 
 export default class Year extends BaseModel {
   @column({ isPrimary: true })
@@ -19,4 +24,14 @@ export default class Year extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @hasMany(() => Nomination)
+  public nominations: HasMany<typeof Nomination>
+
+  public async hasNominations(): Promise<boolean> {
+    const count = (await Nomination.query()
+      .where('year_id', this.id)
+      .count('* as total')) as unknown as CountResult[]
+    return count[0].total > 0
+  }
 }

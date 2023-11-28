@@ -27,21 +27,18 @@ export default class Nomination extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  // Relationship with Game
   @belongsTo(() => Game, {
-    foreignKey: 'gameId', // references 'gameId' in this table
+    foreignKey: 'gameId',
   })
   public game: BelongsTo<typeof Game>
 
-  // Relationship with Category
   @belongsTo(() => Category, {
-    foreignKey: 'categoryId', // references 'categoryId' in this table
+    foreignKey: 'categoryId',
   })
   public category: BelongsTo<typeof Category>
 
-  // Relationship with AwardsYear
   @belongsTo(() => Year, {
-    foreignKey: 'yearId', // references 'awardsYearId' in this table
+    foreignKey: 'yearId',
   })
   public year: BelongsTo<typeof Year>
 
