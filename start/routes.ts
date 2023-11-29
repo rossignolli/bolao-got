@@ -41,10 +41,17 @@ Route.group(() => {
   }).prefix('/years')
 
   Route.group(() => {
-    Route.get('/nominations', 'NominationsController.index')
-    Route.get('/nominations/:id', 'NominationsController.show')
-    Route.post('/nominations', 'NominationsController.store').middleware('auth')
-    Route.put('/nominations/:id', 'NominationsController.update').middleware('auth')
-    Route.delete('/nominations/:id', 'NominationsController.destroy').middleware('auth')
+    Route.get('/', 'NominationsController.index')
+    Route.get('/:id', 'NominationsController.show')
+    Route.post('/', 'NominationsController.store').middleware('auth')
+    Route.put('/:id', 'NominationsController.update').middleware('auth')
+    Route.delete('/:id', 'NominationsController.destroy').middleware('auth')
   }).prefix('/nominations')
+
+  Route.group(() => {
+    Route.get('/', 'UserPredictionsController.index')
+    Route.post('/', 'UserPredictionsController.store').middleware('auth')
+    Route.put('/:id', 'UserPredictionsController.update').middleware('auth')
+    Route.delete('/:id', 'UserPredictionsController.destroy').middleware('auth')
+  }).prefix('/predictions')
 }).prefix('api')
